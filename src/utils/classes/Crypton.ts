@@ -2,10 +2,12 @@ import * as dotenv from 'dotenv';
 import { readdirSync } from 'fs';
 import { Client, ClientOptions, Collection } from 'discord.js';
 import { Command } from './Command';
+import DisTube from 'distube';
 
 export class CryptonClient extends Client {
 	commands: Collection<string, Command> = new Collection();
 	events: Collection<string, Event> = new Collection();
+	distube: DisTube
 
 	constructor(options: ClientOptions) {
 		super(options);
@@ -23,6 +25,8 @@ export class CryptonClient extends Client {
 				console.log(data);
 			});
 		}
+
+		this.distube = new DisTube(this);
 
 		const commandFiles = readdirSync('.crypton/commands');
 		const eventFiles = readdirSync('.crypton/listeners').filter((file) => file.endsWith('.js'));

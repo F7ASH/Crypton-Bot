@@ -14,10 +14,16 @@
     "build": "rm -rf .crypton && tsc"
   },
   "dependencies": {
+    "@discordjs/opus": "^0.6.0",
+    "@discordjs/voice": "^0.6.0",
     "discord.js": "^13.0.1",
+    "distube": "beta",
     "dotenv": "^10.0.0",
+    "ffmpeg-static": "^4.4.0",
     "keyv": "^4.0.3",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "node-gyp": "^8.1.0",
+    "sodium": "^3.0.2"
   },
   "devDependencies": {
     "@types/node": "^16.4.13",
