@@ -8,6 +8,7 @@
   "scripts": {
     "start": "yarn node .crypton/index.js",
     "dev": "echo 'Compiling...' && tsc && echo 'Compiling finished\nStarting Bot' && yarn node .crypton/index.js --dev",
+    "dev:clean": "rm -rf .crypton && echo 'Compiling...' && tsc && echo 'Compiling finished\nStarting Bot' && yarn node .crypton/index.js --dev",
     "lint": " yarn eslint src && echo 'Linting Completed!'",
     "lint:fix": "yarn eslint src --fix && echo 'Linting Completed!'",
     "build": "rm -rf .crypton && tsc"

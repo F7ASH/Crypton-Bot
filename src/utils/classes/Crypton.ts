@@ -24,18 +24,15 @@ export class CryptonClient extends Client {
 			});
 		}
 
-		const commandDirectories = readdirSync('.crypton/commands');
+		const commandFiles = readdirSync('.crypton/commands');
 		const eventFiles = readdirSync('.crypton/listeners').filter((file) => file.endsWith('.js'));
 
-		for (const commandDirectory of commandDirectories) {
-			const thisDirectory = readdirSync(`.crypton/commands/${commandDirectory}`).filter((file) => file.endsWith('.js'));
-			for (const commandFile of thisDirectory) {
-				(async () => {
-					const command = await import(`../../commands/${commandDirectory}/${commandFile}`);
-					this.commands.set(command.default.name.toLowerCase(), command.default);
-					this.emit('debug', `[Command]: Loaded ${command.default.name}`);
-				})();
-			}
+		for (const file of commandFiles) {
+			(async () => {
+				const command = await import(`../../commands/${file}`);
+				this.commands.set(command.default.name.toLowerCase(), command.default);
+				this.emit('debug', `[Command => CryptonClient]: Loaded ${command.default.name}`);
+			})();
 		}
 
 		for (const eventFile of eventFiles) {
@@ -46,7 +43,7 @@ export class CryptonClient extends Client {
 				} else {
 					this.on(event.default.name, (...args) => event.default.run(...args, this));
 				}
-				this.emit('debug', `[Event]: Loaded ${event.default.name}`);
+				this.emit('debug', `[Event => CryptonClient]: Loaded ${event.default.name}`);
 			})();
 		}
 

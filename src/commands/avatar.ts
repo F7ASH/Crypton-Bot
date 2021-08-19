@@ -1,6 +1,6 @@
-import { Command } from '../../utils';
+import { Command } from '../utils';
 import { CommandInteraction, MessageEmbed } from 'discord.js';
-import { EmbedColors } from '../../types/constants';
+import { EmbedColors } from '../types/constants';
 /**
  * Sends the ping of the bot to the user.
  */

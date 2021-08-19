@@ -18,6 +18,19 @@ const onInteraction = new Event({
 
 		if (command.options) {
 			command.options.forEach(option => {
+				if (option.options) {
+					option.options.forEach(opt => {
+						const type = opt.type;
+						let optionValue: any = interaction.options.get(opt.name);
+						if (!optionValue) return;
+						if (type === 'USER') {
+							optionValue = interaction.options.getMember(opt.name);
+						} else {
+							optionValue = optionValue.value;
+						}
+						args[opt.name] = optionValue;
+					});
+				}
 				const type = option.type;
 				let optionValue: any = interaction.options.get(option.name);
 				if (!optionValue) return;
@@ -29,10 +42,8 @@ const onInteraction = new Event({
 				args[option.name] = optionValue;
 			});
 			const subcommand = interaction.options.getSubcommand(false);
-			if (subcommand) args['subcommand'] = subcommand;
+			if (subcommand) args.subcommand = subcommand;
 		};
-
-		console.log(args);
 
 		try {
 			command?.run(interaction, args, client);
